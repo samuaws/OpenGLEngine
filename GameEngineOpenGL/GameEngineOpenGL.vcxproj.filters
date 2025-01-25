@@ -608,6 +608,12 @@
     <ClInclude Include="dependencies\include\assimp\ZipArchiveIOSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dependencies\include\nlohmann\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="dependencies\lib\glfw3.lib" />

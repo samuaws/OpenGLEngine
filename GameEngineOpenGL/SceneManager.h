@@ -13,8 +13,8 @@ public:
     ~SceneManager();
 
     void createScene(const std::string& sceneName);
-    //bool loadScene(const std::string& sceneName);
-    //bool saveScene(const std::string& sceneName) const;
+    bool loadScene(const std::string& sceneName);
+    bool saveScene(const std::string& sceneName) const;
 
     void addEntityToActiveScene(int entityID);
     const std::shared_ptr<Scene> getActiveScene() const;
@@ -24,8 +24,8 @@ private:
     std::unordered_map<std::string, std::shared_ptr<Scene>> scenes;
     std::shared_ptr<Scene> activeScene;
 
-    //void serializeScene(const std::shared_ptr<Scene>& scene, const std::string& filePath) const;
-    //std::shared_ptr<Scene> deserializeScene(const std::string& filePath) const;
+    void serializeScene(const std::shared_ptr<Scene>& scene, const std::string& filePath) const;
+    std::shared_ptr<Scene> deserializeScene(const std::string& filePath) const;
 };
 
 #endif // SCENEMANAGER_H

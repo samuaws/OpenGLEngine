@@ -2,14 +2,9 @@
 #define MESHRENDERERCOMP_H
 
 #include "Component.h"
+#include "Vertex.h" // Use the globally defined Vertex structure
 #include <vector>
 #include <glad/glad.h>
-
-struct Vertex {
-    float position[3];    // Vertex position
-    float normal[3];      // Normal vector
-    float texCoords[2];   // Texture coordinates
-};
 
 class MeshRendererComp : public Component {
 public:

@@ -13,7 +13,7 @@ public:
 
     // Add a component to the entity
     template <typename T, typename... Args>
-    void addComponent(Args&&... args);
+    std::shared_ptr<T> addComponent(Args&&... args);
 
     // Get a component from the entity
     template <typename T>

@@ -321,6 +321,7 @@
     <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
     <ClInclude Include="dependencies\include\KHR\khrplatform.h" />
+    <ClInclude Include="dependencies\include\nlohmann\json.hpp" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Matrix4.h" />
@@ -331,6 +332,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Vertex.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
