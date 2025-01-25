@@ -1,18 +1,15 @@
 #include "Scene.h"
-#include <iostream>
 
-Scene::Scene() {
-    std::cout << "Scene created.\n";
+Scene::Scene(const std::string& name) : name(name) {}
+
+void Scene::addEntity(int entityID) {
+    entities.push_back(entityID);
 }
 
-Scene::~Scene() {
-    std::cout << "Scene destroyed.\n";
+const std::vector<int>& Scene::getEntities() const {
+    return entities;
 }
 
-void Scene::initialize() {
-    std::cout << "Scene initialized.\n";
-}
-
-void Scene::cleanup() {
-    std::cout << "Scene cleaned up.\n";
+const std::string& Scene::getName() const {
+    return name;
 }

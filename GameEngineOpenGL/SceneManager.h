@@ -1,34 +1,31 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
-#include <string>
+#include "Scene.h"
+#include "EntityManager.h"
 #include <unordered_map>
 #include <memory>
-#include "Scene.h"
+#include <string>
 
 class SceneManager {
 public:
-    SceneManager();
+    SceneManager(EntityManager* entityManager);
     ~SceneManager();
 
-    // Load a scene by name or ID
-    bool loadScene(const std::string& sceneName);
-
-    // Save the current scene
-    bool saveScene(const std::string& sceneName);
-
-    // Create a new scene
     void createScene(const std::string& sceneName);
+    //bool loadScene(const std::string& sceneName);
+    //bool saveScene(const std::string& sceneName) const;
 
-    // Set the active scene
-    void setActiveScene(const std::string& sceneName);
-
-    // Get the active scene
-    std::shared_ptr<Scene> getActiveScene() const;
+    void addEntityToActiveScene(int entityID);
+    const std::shared_ptr<Scene> getActiveScene() const;
 
 private:
+    EntityManager* entityManager;
     std::unordered_map<std::string, std::shared_ptr<Scene>> scenes;
     std::shared_ptr<Scene> activeScene;
+
+    //void serializeScene(const std::shared_ptr<Scene>& scene, const std::string& filePath) const;
+    //std::shared_ptr<Scene> deserializeScene(const std::string& filePath) const;
 };
 
 #endif // SCENEMANAGER_H
