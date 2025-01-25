@@ -675,5 +675,7 @@
     <None Include="dependencies\include\assimp\vector3.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="assimp-vc143-mt.dll" />
+    <None Include="dependencies\dll\assimp-vc143-mt.dll" />
   </ItemGroup>
 </Project>

@@ -102,7 +102,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\GameEngineOpenGL\dependencies\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -119,7 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\GameEngineOpenGL\dependencies\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -340,6 +340,8 @@
     <Library Include="dependencies\lib\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assimp-vc143-mt.dll" />
+    <None Include="dependencies\dll\assimp-vc143-mt.dll" />
     <None Include="dependencies\include\assimp5\assimp\.editorconfig" />
     <None Include="dependencies\include\assimp5\assimp\color4.inl" />
     <None Include="dependencies\include\assimp5\assimp\config.h.in" />

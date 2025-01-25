@@ -66,6 +66,10 @@ const std::shared_ptr<Scene> SceneManager::getActiveScene() const {
     return activeScene;
 }
 
+EntityManager* SceneManager::getEntityManager() const {
+    return entityManager;
+}
+
 void SceneManager::serializeScene(const std::shared_ptr<Scene>& scene, const std::string& filePath) const {
     json j;
     j["name"] = scene->getName();

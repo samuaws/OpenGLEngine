@@ -1,8 +1,10 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-class WindowManager;
-class Renderer; // Forward declare Renderer
+#include "WindowManager.h"
+#include "Renderer.h"
+#include "EntityManager.h"
+#include "SceneManager.h"
 
 class Application {
 public:
@@ -10,11 +12,15 @@ public:
     ~Application();
 
     void start(); // Start the application
-    void run();   // Main loop
 
 private:
+    void run(); // Main game loop
+
+    // Managers
     WindowManager* windowManager;
-    Renderer* renderer; // Add renderer as a private member
+    Renderer* renderer;
+    EntityManager* entityManager;
+    SceneManager* sceneManager;
 };
 
 #endif // APPLICATION_H
