@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "EntityManager.h"
 #include "SceneManager.h"
+#include "Camera.h"
 
 class Application {
 public:
@@ -13,14 +14,20 @@ public:
 
     void start(); // Start the application
 
+    // Getters for managers
+    WindowManager* getWindowManager() const;
+    SceneManager* getSceneManager() const;
+    Camera* getCamera();
+
 private:
     void run(); // Main game loop
 
-    // Managers
+    // Managers and Camera
     WindowManager* windowManager;
     Renderer* renderer;
     EntityManager* entityManager;
     SceneManager* sceneManager;
+    Camera* camera;
 };
 
 #endif // APPLICATION_H

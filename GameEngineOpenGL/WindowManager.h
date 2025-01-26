@@ -8,13 +8,16 @@ public:
     WindowManager();
     ~WindowManager();
 
-    bool initializeWindow(int width, int height, const char* title);  // Initialize the window
-    bool shouldCloseWindow(); // Check if the window should close
-    void update();            // Handle rendering and window updates
-    void shutdown();          // Cleanup and close the window
+    bool initializeWindow(int width, int height, const char* title);
+    void update();
+    bool shouldCloseWindow();
+    void shutdown();
+
+    // New getter for the GLFW window
+    GLFWwindow* getWindow() const;
 
 private:
-    GLFWwindow* window;  // The GLFW window instance
+    GLFWwindow* window; // Pointer to the GLFW window
 };
 
 #endif // WINDOWMANAGER_H

@@ -1,9 +1,8 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include "SceneManager.h" // Include SceneManager to access entities in the active scene
-#include "TransformComponent.h"
-#include "MeshRendererComp.h"
+#include "SceneManager.h"
+#include "Camera.h"
 
 class Renderer {
 public:
@@ -12,13 +11,13 @@ public:
 
     bool initialize();
     void clear();
-    void render(SceneManager* sceneManager); // Render all entities in the scene
+    void render(SceneManager* sceneManager, Camera* camera); // Render entities using the camera
 
 private:
-    void setupOpenGL(); // Setup OpenGL settings
+    void setupOpenGL();
 
-    // Helper to render a single entity
-    void renderEntity(const std::shared_ptr<Entity>& entity);
+    // Helper function to calculate the model matrix
+    glm::mat4 calculateModelMatrix(const TransformComponent* transform) const;
 };
 
 #endif // RENDERER_H

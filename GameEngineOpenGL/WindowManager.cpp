@@ -1,5 +1,4 @@
 #include "WindowManager.h"
-#include <GLFW/glfw3.h>
 #include <iostream>
 
 WindowManager::WindowManager() : window(nullptr) {}
@@ -31,11 +30,17 @@ void WindowManager::update() {
     glfwPollEvents();
 }
 
-bool WindowManager::shouldCloseWindow()  {
+bool WindowManager::shouldCloseWindow() {
     return glfwWindowShouldClose(window);
 }
 
 void WindowManager::shutdown() {
-    glfwDestroyWindow(window);
+    if (window) {
+        glfwDestroyWindow(window);
+    }
     glfwTerminate();
+}
+
+GLFWwindow* WindowManager::getWindow() const {
+    return window;
 }

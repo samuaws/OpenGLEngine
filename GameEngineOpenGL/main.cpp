@@ -1,31 +1,32 @@
 #include "Application.h"
-#include "EntityManager.h"
-#include "TransformComponent.h"
+#include "ModelImporter.h"
+#include "Camera.h"
+#include <GLFW/glfw3.h>
 #include <iostream>
 
 int main() {
-    // Initialize Application (no entities here)
+    // Initialize the application
     Application app;
 
-    // Initialize EntityManager
-    EntityManager entityManager;
+    // Access managers
+    auto sceneManager = app.getSceneManager();
+    auto entityManager = sceneManager->getEntityManager();
+    Camera* camera = app.getCamera();
 
-    // Create and manipulate entities
-    int entity1ID = entityManager.createEntity();
-    auto entity1 = entityManager.getEntity(entity1ID);
-    auto transform1 = entity1->getComponent<TransformComponent>();
-    transform1->setPosition({ 0.0f, 1.0f, 2.0f });
+    // Import a model and add it to the scene
+    ModelImporter modelImporter(entityManager);
+    int modelEntityID = modelImporter.importModel("Objects/dronev1.fbx");
 
-    int entity2ID = entityManager.createEntity();
-    auto entity2 = entityManager.getEntity(entity2ID);
-    auto transform2 = entity2->getComponent<TransformComponent>();
-    transform2->setPosition({ 3.0f, 4.0f, 5.0f });
+    std::cout << "Model Imported with no error.\n";
 
-    // Log entity transformations
-    std::cout << "Entity 1 Position: (" << transform1->position.x << ", "
-        << transform1->position.y << ", " << transform1->position.z << ")\n";
-    std::cout << "Entity 2 Position: (" << transform2->position.x << ", "
-        << transform2->position.y << ", " << transform2->position.z << ")\n";
+    // Add the imported model to the active scene
+    sceneManager->addEntityToActiveScene(modelEntityID);
+
+    // Set a transform for the imported model
+    auto modelEntity = entityManager->getEntity(modelEntityID);
+    auto transform = modelEntity->getComponent<TransformComponent>();
+    transform->setPosition({ 0.0f, 0.0f, -5.0f });
+    transform->setScale({ 1.0f, 1.0f, 1.0f });
 
     // Start the application
     app.start();

@@ -2,27 +2,24 @@
 #define MESHRENDERERCOMP_H
 
 #include "Component.h"
-#include "Vertex.h" // Use the globally defined Vertex structure
 #include <vector>
 #include <glad/glad.h>
+#include <glm/glm.hpp> // For MVP matrices
+#include "Vertex.h"
 
 class MeshRendererComp : public Component {
 public:
     MeshRendererComp();
     ~MeshRendererComp();
 
-    // Set the mesh data and prepare OpenGL buffers
     void setMeshData(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
-
-    // Render the mesh
-    void render() const;
+    void render(const glm::mat4& mvpMatrix) const; // Accept MVP matrix for rendering
 
 private:
-    unsigned int VAO, VBO, EBO; // OpenGL buffers
+    unsigned int VAO, VBO, EBO;
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
 
-    // Helper function to setup OpenGL buffers
     void setupMesh();
 };
 

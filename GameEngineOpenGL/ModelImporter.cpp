@@ -1,6 +1,7 @@
 #include "ModelImporter.h"
 #include "MeshRendererComp.h"
 #include "TransformComponent.h"
+#include "Vertex.h" // Ensure the new Vertex format is included
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
@@ -55,7 +56,7 @@ void ModelImporter::loadMeshFromFile(const std::string& filePath, std::vector<Ve
         Vertex vertex;
 
         // Position
-        vertex.position = Vector3(
+        vertex.position = glm::vec3(
             mesh->mVertices[i].x,
             mesh->mVertices[i].y,
             mesh->mVertices[i].z
@@ -63,24 +64,25 @@ void ModelImporter::loadMeshFromFile(const std::string& filePath, std::vector<Ve
 
         // Normal
         if (mesh->mNormals) {
-            vertex.normal = Vector3(
+            vertex.normal = glm::vec3(
                 mesh->mNormals[i].x,
                 mesh->mNormals[i].y,
                 mesh->mNormals[i].z
             );
         }
         else {
-            vertex.normal = Vector3(0.0f, 0.0f, 0.0f);
+            vertex.normal = glm::vec3(0.0f, 0.0f, 0.0f);
         }
 
         // Texture coordinates
         if (mesh->mTextureCoords[0]) {
-            vertex.texCoords[0] = mesh->mTextureCoords[0][i].x;
-            vertex.texCoords[1] = mesh->mTextureCoords[0][i].y;
+            vertex.texCoords = glm::vec2(
+                mesh->mTextureCoords[0][i].x,
+                mesh->mTextureCoords[0][i].y
+            );
         }
         else {
-            vertex.texCoords[0] = 0.0f;
-            vertex.texCoords[1] = 0.0f;
+            vertex.texCoords = glm::vec2(0.0f, 0.0f);
         }
 
         vertices.push_back(vertex);

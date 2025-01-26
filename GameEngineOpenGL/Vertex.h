@@ -1,12 +1,13 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
-#include "Vector3.h" // Use the existing Vector3 class
+#include <glm/glm.hpp>
 
-struct Vertex {
-    Vector3 position;   // Vertex position
-    Vector3 normal;     // Normal vector
-    float texCoords[2]; // Texture coordinates (still using a fixed array for simplicity)
+class Vertex {
+public : 
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 texCoords;
 };
 
 #endif // VERTEX_H
