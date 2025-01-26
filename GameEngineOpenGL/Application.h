@@ -6,6 +6,7 @@
 #include "EntityManager.h"
 #include "SceneManager.h"
 #include "Camera.h"
+#include <functional>
 
 class Application {
 public:
@@ -13,6 +14,7 @@ public:
     ~Application();
 
     void start(); // Start the application
+    void registerSetup(const std::function<void()>& setupFunction);
 
     // Getters for managers
     WindowManager* getWindowManager() const;
@@ -28,6 +30,8 @@ private:
     EntityManager* entityManager;
     SceneManager* sceneManager;
     Camera* camera;
+
+    std::function<void()> setupCallback; // Callback for OpenGL-dependent setup
 };
 
 #endif // APPLICATION_H

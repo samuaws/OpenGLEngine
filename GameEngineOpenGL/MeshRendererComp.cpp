@@ -16,6 +16,7 @@ void MeshRendererComp::setMeshData(const std::vector<Vertex>& vertices, const st
 }
 
 void MeshRendererComp::setupMesh() {
+    std::cout << "Mesh Check 1\n";
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);

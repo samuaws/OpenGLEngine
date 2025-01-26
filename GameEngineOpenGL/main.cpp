@@ -5,31 +5,32 @@
 #include <iostream>
 
 int main() {
-    // Initialize the application
     Application app;
 
-    // Access managers
-    auto sceneManager = app.getSceneManager();
-    auto entityManager = sceneManager->getEntityManager();
-    Camera* camera = app.getCamera();
+    app.registerSetup([&]() {
 
-    // Import a model and add it to the scene
-    ModelImporter modelImporter(entityManager);
-    int modelEntityID = modelImporter.importModel("Objects/dronev1.fbx");
+        // Access managers
+        auto sceneManager = app.getSceneManager();
+        auto entityManager = sceneManager->getEntityManager();
+        Camera* camera = app.getCamera();
 
-    std::cout << "Model Imported with no error.\n";
+        // Import a model and add it to the scene
+        ModelImporter modelImporter(entityManager);
+        int modelEntityID = modelImporter.importModel("Objects/dronev1.fbx");
 
-    // Add the imported model to the active scene
-    sceneManager->addEntityToActiveScene(modelEntityID);
+        std::cout << "Model Imported with no error.\n";
 
-    // Set a transform for the imported model
-    auto modelEntity = entityManager->getEntity(modelEntityID);
-    auto transform = modelEntity->getComponent<TransformComponent>();
-    transform->setPosition({ 0.0f, 0.0f, -5.0f });
-    transform->setScale({ 1.0f, 1.0f, 1.0f });
+        // Add the imported model to the active scene
+        sceneManager->addEntityToActiveScene(modelEntityID);
 
-    // Start the application
+        // Set a transform for the imported model
+        auto modelEntity = entityManager->getEntity(modelEntityID);
+        auto transform = modelEntity->getComponent<TransformComponent>();
+        transform->setPosition({ 0.0f, 0.0f, -5.0f });
+        });
+
     app.start();
 
     return 0;
 }
+

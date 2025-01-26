@@ -21,13 +21,16 @@ int ModelImporter::importModel(const std::string& filePath) {
         std::cerr << "Failed to load model: " << filePath << "\n";
         return -1;
     }
+    std::cout << "Checkpoint 1 \n";
 
     // Create a new entity for the model
     int entityID = entityManager->createEntity();
     auto entity = entityManager->getEntity(entityID);
 
+    std::cout << "Checkpoint 2 \n";
     // Add a MeshRendererComp to the entity and set the mesh data
     auto meshRenderer = entity->addComponent<MeshRendererComp>();
+    std::cout << "Checkpoint 3 \n";
     meshRenderer->setMeshData(vertices, indices);
 
     // Transform is added by default as per earlier implementation

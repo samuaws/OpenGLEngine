@@ -19,30 +19,40 @@ Application::~Application() {
     delete renderer;
     delete windowManager;
 }
-
 void Application::start() {
-    // Initialize the window
+    // Step 1: Initialize the window and OpenGL context
     if (!windowManager->initializeWindow(800, 600, "Game Engine Window")) {
         std::cerr << "Failed to initialize the window!" << std::endl;
         return;
     }
 
-    // Initialize the renderer
+    // Step 2: Initialize the renderer
     if (!renderer->initialize()) {
         std::cerr << "Failed to initialize GLAD!" << std::endl;
         return;
     }
 
-    // Initialize the scene
+    // Step 3: Create the default scene
+    std::cout << "Creating default scene..." << std::endl;
     sceneManager->createScene("MainScene");
     sceneManager->loadScene("MainScene");
+    std::cout << "Default scene 'MainScene' created and loaded." << std::endl;
 
-    // Log success
-    std::cout << "Scene 'MainScene' created and loaded.\n";
+    // Step 4: Run any additional OpenGL-dependent setup (if a setup callback is registered)
+    if (setupCallback) {
+        std::cout << "Running setup callback..." << std::endl;
+        setupCallback();
+    }
 
-    // Run the main loop
+    // Step 5: Enter the main game loop
     run();
 }
+
+
+void Application::registerSetup(const std::function<void()>& setupFunction) {
+    setupCallback = setupFunction;
+}
+
 
 void Application::run() {
     GLFWwindow* window = windowManager->getWindow();
