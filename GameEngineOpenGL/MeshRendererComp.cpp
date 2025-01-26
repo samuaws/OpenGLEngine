@@ -1,12 +1,28 @@
 #include "MeshRendererComp.h"
 #include <iostream>
 
-MeshRendererComp::MeshRendererComp() : VAO(0), VBO(0), EBO(0) {}
+MeshRendererComp::MeshRendererComp() : VAO(0), VBO(0), EBO(0) {
+    setupShader();
+}
 
 MeshRendererComp::~MeshRendererComp() {
+    if (shader) {
+        delete shader; // Clean up shader
+    }
     if (VAO) glDeleteVertexArrays(1, &VAO);
     if (VBO) glDeleteBuffers(1, &VBO);
     if (EBO) glDeleteBuffers(1, &EBO);
+}
+
+void MeshRendererComp::setupShader() {
+    try {
+        // Load and compile the shaders
+        shader = new Shader("shaders/vertex.glsl", "shaders/fragment.glsl");
+        std::cout << "Shader initialized successfully." << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Failed to initialize shader: " << e.what() << std::endl;
+    }
 }
 
 void MeshRendererComp::setMeshData(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices) {
@@ -44,12 +60,25 @@ void MeshRendererComp::setupMesh() {
     glBindVertexArray(0);
 }
 
-void MeshRendererComp::render(const glm::mat4& mvpMatrix) const {
-    // Simulate rendering with MVP matrix (shader integration needed here)
-    std::cout << "Rendering with MVP Matrix\n";
+void MeshRendererComp::setShader(Shader* shader) {
+    this->shader = shader;
+}
 
-    // Bind VAO and draw
+
+void MeshRendererComp::render(const glm::mat4& mvpMatrix) const {
+    // Use the shader program
+    shader->use();
+
+    // Send the MVP matrix to the shader
+    GLuint mvpLocation = glGetUniformLocation(shader->getID(), "uMVP");
+    glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, &mvpMatrix[0][0]);
+
+    // Bind the VAO and draw
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+
+    // Unbind the shader program
+    glUseProgram(0);
 }
+

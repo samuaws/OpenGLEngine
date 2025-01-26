@@ -146,6 +146,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
@@ -622,6 +623,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vertex.h" />
@@ -794,6 +796,8 @@
     <None Include="dependencies\include\glm\gtx\wrap.inl" />
     <None Include="Entity.inl" />
     <None Include="Objects\dronev1.fbx" />
+    <None Include="shaders\fragment.glsl" />
+    <None Include="shaders\vertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

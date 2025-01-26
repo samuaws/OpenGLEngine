@@ -60,6 +60,9 @@
     <ClCompile Include="dependencies\include\glm\glm.cppm">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dependencies\include\GLFW\glfw3.h">
@@ -1490,6 +1493,9 @@
     <ClInclude Include="Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="dependencies\lib\glfw3.lib" />
@@ -1968,5 +1974,7 @@
     <None Include="dependencies\include\glm\gtx\wrap.inl">
       <Filter>Header Files</Filter>
     </None>
+    <None Include="shaders\fragment.glsl" />
+    <None Include="shaders\vertex.glsl" />
   </ItemGroup>
 </Project>
