@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "EntityManager.h"
+#include "SceneControllerInput.h"
 #include <unordered_map>
 #include <memory>
 #include <string>
@@ -24,6 +25,9 @@ public:
     // Get the EntityManager
     EntityManager* getEntityManager() const;
 
+    void processInput(float deltaTime);
+    void initializeSceneInput(Camera* camera, GLFWwindow* window);
+
 private:
     EntityManager* entityManager; // Pointer to the EntityManager
     std::unordered_map<std::string, std::shared_ptr<Scene>> scenes;
@@ -32,6 +36,8 @@ private:
     // Helper function to serialize/deserialize a scene
     void serializeScene(const std::shared_ptr<Scene>& scene, const std::string& filePath) const;
     std::shared_ptr<Scene> deserializeScene(const std::string& filePath) const;
+
+    SceneControllerInput* sceneInput;
 };
 
 #endif // SCENEMANAGER_H

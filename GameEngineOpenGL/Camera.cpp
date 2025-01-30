@@ -43,6 +43,8 @@ void Camera::rotate(const Vector3& deltaRotation) {
     if (rotation.x < -89.0f) rotation.x = -89.0f;
 }
 
+
+
 glm::mat4 Camera::getViewMatrix() const {
     glm::vec3 forward = getForwardVector();
     glm::vec3 up(0.0f, 1.0f, 0.0f);

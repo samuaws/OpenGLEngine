@@ -21,6 +21,7 @@ public:
     void move(const Vector3& direction, float deltaTime);
     void rotate(const Vector3& deltaRotation);
 
+
     // Get matrices
     glm::mat4 getViewMatrix() const;
     glm::mat4 getProjectionMatrix(float aspectRatio) const;

@@ -3,7 +3,6 @@
 
 #include "WindowManager.h"
 #include "Renderer.h"
-#include "EntityManager.h"
 #include "SceneManager.h"
 #include "Camera.h"
 #include <functional>
@@ -24,7 +23,6 @@ public:
 private:
     void run(); // Main game loop
 
-    // Managers and Camera
     WindowManager* windowManager;
     Renderer* renderer;
     EntityManager* entityManager;

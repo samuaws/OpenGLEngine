@@ -145,6 +145,7 @@
     <ClCompile Include="ModelImporter.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneControllerInput.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
@@ -622,6 +623,7 @@
     <ClInclude Include="ModelImporter.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneControllerInput.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TransformComponent.h" />

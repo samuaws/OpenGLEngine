@@ -5,7 +5,10 @@
 
 using json = nlohmann::json;
 
-SceneManager::SceneManager(EntityManager* entityManager) : entityManager(entityManager), activeScene(nullptr) {}
+SceneManager::SceneManager(EntityManager* entityManager)
+    : entityManager(entityManager), activeScene(nullptr) {
+    sceneInput = nullptr; // Not initialized yet
+}
 
 SceneManager::~SceneManager() {}
 
@@ -100,4 +103,17 @@ std::shared_ptr<Scene> SceneManager::deserializeScene(const std::string& filePat
     }
 
     return scene;
+}
+
+// Initialize SceneControllerInput when we have access to the window
+void SceneManager::processInput(float deltaTime) {
+    if (sceneInput && activeScene) {
+        sceneInput->processInput(deltaTime);
+    }
+}
+
+void SceneManager::initializeSceneInput(Camera* camera, GLFWwindow* window) {
+    if (!sceneInput) {
+        sceneInput = new SceneControllerInput(camera, window);
+    }
 }
