@@ -1,8 +1,8 @@
 #ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
-#include "Scene.h"
 #include "EntityManager.h"
+#include "Scene.h"
 #include "SceneControllerInput.h"
 #include <unordered_map>
 #include <memory>
@@ -13,31 +13,28 @@ public:
     SceneManager(EntityManager* entityManager);
     ~SceneManager();
 
-    // Scene management
     void createScene(const std::string& sceneName);
     bool loadScene(const std::string& sceneName);
     bool saveScene(const std::string& sceneName) const;
-
-    // Entity management in active scene
     void addEntityToActiveScene(int entityID);
-    const std::shared_ptr<Scene> getActiveScene() const;
 
-    // Get the EntityManager
+    const std::shared_ptr<Scene> getActiveScene() const;
     EntityManager* getEntityManager() const;
 
+    void updateActiveScene(float deltaTime); // Update function to execute scripts
+
+    // Scene input management
     void processInput(float deltaTime);
     void initializeSceneInput(Camera* camera, GLFWwindow* window);
 
 private:
-    EntityManager* entityManager; // Pointer to the EntityManager
+    EntityManager* entityManager;
     std::unordered_map<std::string, std::shared_ptr<Scene>> scenes;
     std::shared_ptr<Scene> activeScene;
+    SceneControllerInput* sceneInput;
 
-    // Helper function to serialize/deserialize a scene
     void serializeScene(const std::shared_ptr<Scene>& scene, const std::string& filePath) const;
     std::shared_ptr<Scene> deserializeScene(const std::string& filePath) const;
-
-    SceneControllerInput* sceneInput;
 };
 
 #endif // SCENEMANAGER_H

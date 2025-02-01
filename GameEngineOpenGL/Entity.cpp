@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include <iostream>
 
 Entity::Entity(int id) : id(id) {
     initializeDefaultComponents();
@@ -13,4 +14,16 @@ int Entity::getID() const {
 void Entity::initializeDefaultComponents() {
     // Add a TransformComponent by default
     addComponent<TransformComponent>();
+}
+
+void Entity::startScripts() {
+    for (auto& script : scriptComponents) {
+        script->start();
+    }
+}
+
+void Entity::updateScripts(float deltaTime) {
+    for (auto& script : scriptComponents) {
+        script->update(deltaTime);
+    }
 }

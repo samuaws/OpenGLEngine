@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "ModelImporter.h"
-#include "Camera.h"
+#include "CustomScript.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -8,29 +8,26 @@ int main() {
     Application app;
 
     app.registerSetup([&]() {
-
         // Access managers
         auto sceneManager = app.getSceneManager();
         auto entityManager = sceneManager->getEntityManager();
-        Camera* camera = app.getCamera();
 
         // Import a model and add it to the scene
         ModelImporter modelImporter(entityManager);
         int modelEntityID = modelImporter.importModel("Objects/dronev1.fbx");
+        auto entity = entityManager->getEntity(modelEntityID);
+        entity->addComponent<CustomScript>(); // Add a script to test behavior
 
-        std::cout << "Model Imported with no error.\n";
+        std::cout << "Model Imported Successfully, Entity ID: " << modelEntityID << std::endl;
 
-        // Add the imported model to the active scene
+        // Add the model to the active scene
         sceneManager->addEntityToActiveScene(modelEntityID);
 
-        // Set a transform for the imported model
-        auto modelEntity = entityManager->getEntity(modelEntityID);
-        auto transform = modelEntity->getComponent<TransformComponent>();
-        transform->setPosition({ 0.0f, 0.0f, -5.0f });
+
+        std::cout << "Scene setup completed. Starting Application...\n";
         });
 
     app.start();
 
     return 0;
 }
-

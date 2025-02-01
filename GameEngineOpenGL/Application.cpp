@@ -70,6 +70,9 @@ void Application::run() {
         // Process input via SceneManager
         sceneManager->processInput(deltaTime);
 
+        //  Calls update on all entities in the active scene
+        sceneManager->updateActiveScene(deltaTime);
+
         // Render the scene
         renderer->clear();
         renderer->render(sceneManager, camera);

@@ -56,6 +56,11 @@ void Renderer::render(SceneManager* sceneManager, Camera* camera) {
             // Calculate the model matrix
             glm::mat4 modelMatrix = calculateModelMatrix(transform.get());
 
+         /*   std::cout << "Cheking Transform before Render "
+                << transform->position.x << ", "
+                << transform->position.y << ", "
+                << transform->position.z << std::endl;*/
+
             // Combine model, view, and projection matrices
             glm::mat4 mvpMatrix = projectionMatrix * viewMatrix * modelMatrix;
 

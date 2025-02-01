@@ -155,6 +155,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CustomScript.h" />
     <ClInclude Include="dependencies\include\assimp5\assimp\aabb.h" />
     <ClInclude Include="dependencies\include\assimp5\assimp\ai_assert.h" />
     <ClInclude Include="dependencies\include\assimp5\assimp\anim.h" />
@@ -625,6 +626,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneControllerInput.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Vector3.h" />

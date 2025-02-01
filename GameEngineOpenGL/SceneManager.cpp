@@ -6,11 +6,13 @@
 using json = nlohmann::json;
 
 SceneManager::SceneManager(EntityManager* entityManager)
-    : entityManager(entityManager), activeScene(nullptr) {
-    sceneInput = nullptr; // Not initialized yet
-}
+    : entityManager(entityManager), activeScene(nullptr), sceneInput(nullptr) {}
 
-SceneManager::~SceneManager() {}
+SceneManager::~SceneManager() {
+    if (sceneInput) {
+        delete sceneInput;
+    }
+}
 
 void SceneManager::createScene(const std::string& sceneName) {
     if (scenes.find(sceneName) != scenes.end()) {
@@ -30,6 +32,15 @@ bool SceneManager::loadScene(const std::string& sceneName) {
         if (loadedScene) {
             scenes[sceneName] = loadedScene;
             activeScene = loadedScene;
+
+            // Initialize script components
+            for (int entityID : activeScene->getEntities()) {
+                auto entity = entityManager->getEntity(entityID);
+                if (entity) {
+                    entity->startScripts();
+                }
+            }
+
             std::cout << "Scene '" << sceneName << "' loaded from file successfully.\n";
             return true;
         }
@@ -39,6 +50,15 @@ bool SceneManager::loadScene(const std::string& sceneName) {
     }
 
     activeScene = scenes[sceneName];
+
+    // Call start on all script components
+    for (int entityID : activeScene->getEntities()) {
+        auto entity = entityManager->getEntity(entityID);
+        if (entity) {
+            entity->startScripts();
+        }
+    }
+
     std::cout << "Scene '" << sceneName << "' is now active.\n";
     return true;
 }
@@ -63,6 +83,12 @@ void SceneManager::addEntityToActiveScene(int entityID) {
 
     activeScene->addEntity(entityID);
     std::cout << "Entity " << entityID << " added to active scene.\n";
+
+    // If the entity has script components, initialize them
+    auto entity = entityManager->getEntity(entityID);
+    if (entity) {
+        entity->startScripts();
+    }
 }
 
 const std::shared_ptr<Scene> SceneManager::getActiveScene() const {
@@ -73,6 +99,19 @@ EntityManager* SceneManager::getEntityManager() const {
     return entityManager;
 }
 
+// Update the active scene (calls update on all script components)
+void SceneManager::updateActiveScene(float deltaTime) {
+    
+    if (!activeScene) return;
+    for (int entityID : activeScene->getEntities()) {
+        auto entity = entityManager->getEntity(entityID);
+        if (entity) {
+            entity->updateScripts(deltaTime);
+        }
+    }
+}
+
+// Serialize scene to JSON file
 void SceneManager::serializeScene(const std::shared_ptr<Scene>& scene, const std::string& filePath) const {
     json j;
     j["name"] = scene->getName();
@@ -87,6 +126,7 @@ void SceneManager::serializeScene(const std::shared_ptr<Scene>& scene, const std
     file << j.dump(4); // Pretty print with 4 spaces
 }
 
+// Deserialize scene from JSON file
 std::shared_ptr<Scene> SceneManager::deserializeScene(const std::string& filePath) const {
     std::ifstream file(filePath);
     if (!file.is_open()) {
@@ -105,13 +145,14 @@ std::shared_ptr<Scene> SceneManager::deserializeScene(const std::string& filePat
     return scene;
 }
 
-// Initialize SceneControllerInput when we have access to the window
+// Handle scene input processing
 void SceneManager::processInput(float deltaTime) {
     if (sceneInput && activeScene) {
         sceneInput->processInput(deltaTime);
     }
 }
 
+// Initialize SceneControllerInput when we have access to the window
 void SceneManager::initializeSceneInput(Camera* camera, GLFWwindow* window) {
     if (!sceneInput) {
         sceneInput = new SceneControllerInput(camera, window);
