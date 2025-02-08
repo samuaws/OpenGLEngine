@@ -2,6 +2,8 @@
 #define VECTOR3_H
 
 #include <cmath>
+#include <functional> // Required for std::hash
+#include <iostream>
 
 class Vector3 {
 public:
@@ -24,6 +26,11 @@ public:
         return Vector3(x * scalar, y * scalar, z * scalar);
     }
 
+    // Equality comparison
+    bool operator==(const Vector3& other) const {
+        return x == other.x && y == other.y && z == other.z;
+    }
+
     // Normalize the vector
     Vector3 normalize() const {
         float length = std::sqrt(x * x + y * y + z * z);
@@ -44,5 +51,18 @@ public:
         );
     }
 };
+
+// Define a custom hash function for `std::unordered_map`
+namespace std {
+    template <>
+    struct hash<Vector3> {
+        size_t operator()(const Vector3& v) const noexcept {
+            size_t hx = std::hash<float>{}(v.x);
+            size_t hy = std::hash<float>{}(v.y);
+            size_t hz = std::hash<float>{}(v.z);
+            return hx ^ (hy << 1) ^ (hz << 2); // Combine hashes
+        }
+    };
+}
 
 #endif // VECTOR3_H
