@@ -1,32 +1,29 @@
-#include "Application.h"
-#include "ModelImporter.h"
-#include "CustomScript.h"
-#include <GLFW/glfw3.h>
-#include <iostream>
+#include "Engine/Application.h"
+#include "Engine/EntityManager.h"
+#include "GameManager.h"
+#include <memory>
 
 int main() {
-    Application app;
-
-    app.registerSetup([&]() {
-        // Access managers
-        auto sceneManager = app.getSceneManager();
-        auto entityManager = sceneManager->getEntityManager();
-
-        // Import a model and add it to the scene
-        ModelImporter modelImporter(entityManager);
-        int modelEntityID = modelImporter.importModel("Objects/dronev1.fbx");
-        auto entity = entityManager->getEntity(modelEntityID);
-        entity->addComponent<CustomScript>(); // Add a script to test behavior
-
-        std::cout << "Model Imported Successfully, Entity ID: " << modelEntityID << std::endl;
-
-        // Add the model to the active scene
-        sceneManager->addEntityToActiveScene(modelEntityID);
+    // Create Application
+    Application& app = Application::getInstance();
 
 
-        std::cout << "Scene setup completed. Starting Application...\n";
-        });
+    auto sceneManager = app.getSceneManager();
+    auto entityManager = sceneManager->getEntityManager();
 
+    // Create a Manager entity
+    int gameManagerID = entityManager->createEntity();  // Create entity and get ID
+    auto gameManagerEntity = entityManager->getEntity(gameManagerID); // Retrieve the entity
+
+    if (gameManagerEntity) { // Ensure entity is valid
+        gameManagerEntity->addComponent<GameManager>(10, 5, 3);
+    }
+    else {
+        std::cerr << "Failed to create GameManager entity.\n";
+        return -1;
+    }
+
+    // Start the game loop
     app.start();
 
     return 0;

@@ -16,6 +16,7 @@ void Entity::initializeDefaultComponents() {
     addComponent<TransformComponent>();
 }
 
+
 void Entity::startScripts() {
     for (auto& script : scriptComponents) {
         script->start();

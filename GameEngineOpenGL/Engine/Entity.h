@@ -44,6 +44,12 @@ public:
         return nullptr;
     }
 
+    template <typename T>
+    bool hasComponent() {
+        std::size_t typeID = typeid(T).hash_code();
+        return components.find(typeID) != components.end();
+    }
+
     // Initialize default components
     void initializeDefaultComponents();
 

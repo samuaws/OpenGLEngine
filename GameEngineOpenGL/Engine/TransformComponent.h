@@ -14,6 +14,9 @@ public:
     TransformComponent()
         : position(0, 0, 0), rotation(0, 0, 0), scale(1, 1, 1) {}
 
+    explicit TransformComponent(const Vector3& pos)
+        : position(pos), rotation(0, 0, 0), scale(1, 1, 1) {}
+
     // Get the transformation matrix
     Matrix4 getTransformMatrix() const;
 

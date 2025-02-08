@@ -9,8 +9,7 @@
 
 class Application {
 public:
-    Application();
-    ~Application();
+    static Application& getInstance(); // Global access to Application instance
 
     void start(); // Start the application
     void registerSetup(const std::function<void()>& setupFunction);
@@ -21,7 +20,11 @@ public:
     Camera* getCamera();
 
 private:
+    static Application instance; // Static instance for Singleton pattern
+
     void run(); // Main game loop
+    Application(); // Private constructor (Singleton)
+    ~Application(); // Destructor
 
     WindowManager* windowManager;
     Renderer* renderer;
@@ -30,6 +33,10 @@ private:
     Camera* camera;
 
     std::function<void()> setupCallback; // Callback for OpenGL-dependent setup
+
+    // Delete copy constructor and assignment operator to prevent duplicates
+    Application(const Application&) = delete;
+    Application& operator=(const Application&) = delete;
 };
 
 #endif // APPLICATION_H

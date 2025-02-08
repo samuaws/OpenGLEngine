@@ -2,6 +2,7 @@
 #define SCRIPT_COMPONENT_H
 
 #include "Component.h"
+#include "Vector2.h"
 
 // Forward Declaration (Tells the compiler "Entity exists" without including it)
 class Entity;

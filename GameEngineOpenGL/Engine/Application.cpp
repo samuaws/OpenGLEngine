@@ -1,6 +1,14 @@
 #include "Application.h"
 #include <iostream>
 
+// Define the static instance correctly
+Application Application::instance;
+
+Application& Application::getInstance() {
+    return instance; //  Return reference instead of pointer
+}
+
+// Private constructor (Singleton pattern)
 Application::Application() {
     // Initialize managers and camera
     windowManager = new WindowManager();
@@ -10,8 +18,8 @@ Application::Application() {
     camera = new Camera();
 }
 
+// Destructor (Ensures cleanup)
 Application::~Application() {
-    // Cleanup memory
     delete camera;
     delete sceneManager;
     delete entityManager;
@@ -70,7 +78,7 @@ void Application::run() {
         // Process input via SceneManager
         sceneManager->processInput(deltaTime);
 
-        //  Calls update on all entities in the active scene
+        // Calls update on all entities in the active scene
         sceneManager->updateActiveScene(deltaTime);
 
         // Render the scene
