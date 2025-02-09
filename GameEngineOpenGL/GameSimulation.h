@@ -3,7 +3,7 @@
 
 #include "Engine/ScriptComponent.h"
 #include "GridSystem.h"
-#include "Engine/Vector3.h" // Now using Vector3
+#include "Engine/Vector3.h"
 #include <vector>
 
 class GameSimulation : public ScriptComponent {
@@ -17,12 +17,14 @@ private:
     GridSystem* grid;
     int adventurerScore;
     int monsterScore;
-    int winCondition; // Number of units needed to win
+    int winCondition;
+    float timeAccumulator; // NEW: Track time for turns
 
     void processTurn();
     void moveEntities();
     void handleCombat();
     void checkWinCondition();
+    void renderGrid(); // NEW: Render grid to the console
 };
 
 #endif // GAME_SIMULATION_H

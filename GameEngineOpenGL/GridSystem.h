@@ -2,6 +2,7 @@
 #define GRID_SYSTEM_H
 
 #include <unordered_map>
+#include <vector>
 #include "Engine/ScriptComponent.h"
 #include "Engine/Entity.h"
 #include "Engine/Vector3.h" // Replacing Vector2 with Vector3
@@ -18,6 +19,13 @@ public:
     Entity* getEntityAt(Vector3 position);
     bool isOccupied(Vector3 position);
     void removeEntity(Entity* entity);
+    Entity* getOpponentAt(Vector3 position, Entity* entity);
+
+
+    // New methods
+    bool hasOpponent(Vector3 position, Entity* entity);
+    bool isValidPosition(Vector3 position);
+    std::vector<Entity*> getEntitiesAt(Vector3 position);
 
     int getWidth() const { return width; }
     int getHeight() const { return height; }

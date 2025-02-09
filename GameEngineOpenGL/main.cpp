@@ -7,21 +7,25 @@ int main() {
     // Create Application
     Application& app = Application::getInstance();
 
+    app.registerSetup([&]() {
+        auto sceneManager = app.getSceneManager();
+        auto entityManager = sceneManager->getEntityManager();
 
-    auto sceneManager = app.getSceneManager();
-    auto entityManager = sceneManager->getEntityManager();
+        // Create a Manager entity
+        int gameManagerID = entityManager->createEntity();  // Create entity and get ID
+        auto gameManagerEntity = entityManager->getEntity(gameManagerID); // Retrieve the entity
 
-    // Create a Manager entity
-    int gameManagerID = entityManager->createEntity();  // Create entity and get ID
-    auto gameManagerEntity = entityManager->getEntity(gameManagerID); // Retrieve the entity
+        if (gameManagerEntity) { // Ensure entity is valid
+            gameManagerEntity->addComponent<GameManager>(10, 5, 3);
 
-    if (gameManagerEntity) { // Ensure entity is valid
-        gameManagerEntity->addComponent<GameManager>(10, 5, 3);
-    }
-    else {
-        std::cerr << "Failed to create GameManager entity.\n";
-        return -1;
-    }
+            // Add the GameManager entity to the active scene
+            sceneManager->addEntityToActiveScene(gameManagerID);
+        }
+        else {
+            std::cerr << "Failed to create GameManager entity.\n";
+            return;
+        }
+        });
 
     // Start the game loop
     app.start();

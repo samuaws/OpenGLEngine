@@ -19,10 +19,14 @@ public:
     int getHealth() const;
     int getDamage() const;
 
+    // NEW: Function to check if entity is currently fighting
+    bool isInCombat() const;
+
 private:
     int health;
     int maxHealth;
     int damage;
+    bool inCombat; // NEW: Track if entity is in combat
 };
 
 #endif // COMBAT_COMPONENT_H

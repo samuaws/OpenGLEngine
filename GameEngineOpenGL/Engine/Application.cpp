@@ -62,26 +62,30 @@ void Application::start() {
     // Step 6: Enter the main game loop
     run();
 }
-
 void Application::run() {
     GLFWwindow* window = windowManager->getWindow();
 
     float lastFrameTime = glfwGetTime();
     float currentFrameTime;
+    const float fixedTimeStep = 2.0f; // Every turn happens every 2 seconds
 
     std::cout << "Entering main loop.\n";
     while (!windowManager->shouldCloseWindow()) {
         currentFrameTime = glfwGetTime();
         float deltaTime = currentFrameTime - lastFrameTime;
-        lastFrameTime = currentFrameTime;
 
-        // Process input via SceneManager
-        sceneManager->processInput(deltaTime);
+        // Only update the scene every 5 seconds
+        if (deltaTime >= fixedTimeStep) {
+            lastFrameTime = currentFrameTime;
 
-        // Calls update on all entities in the active scene
-        sceneManager->updateActiveScene(deltaTime);
+            // Process input via SceneManager
+            sceneManager->processInput(deltaTime);
 
-        // Render the scene
+            // Update the scene logic (once every 5 seconds)
+            sceneManager->updateActiveScene(deltaTime);
+        }
+
+        // Render every frame (independent of update logic)
         renderer->clear();
         renderer->render(sceneManager, camera);
 
@@ -91,6 +95,7 @@ void Application::run() {
 
     windowManager->shutdown();
 }
+
 
 WindowManager* Application::getWindowManager() const {
     return windowManager;
